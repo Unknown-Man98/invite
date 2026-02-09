@@ -55,7 +55,7 @@ with st.container():
             st.rerun()
     else:
         st.balloons()
-        st.markdown("## Martynka, will you be my Valentine? 🌹")
+        st.markdown("## Will you be my Valentine? 🌹")
         
         col1, col2 = st.columns(2)
         with col1:
