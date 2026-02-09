@@ -3,7 +3,7 @@ import streamlit as st
 # Page setup
 st.set_page_config(page_title="Dla Martynki ❤️", page_icon="💌", layout="centered")
 
-# Custom CSS for the romantic vibe
+# Custom CSS
 st.markdown("""
     <style>
     .stApp {
@@ -22,61 +22,55 @@ st.markdown("""
         color: white;
         border-radius: 20px;
         width: 100%;
+        border: none;
+        padding: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- IMAGE LINKS ---
-# Replace these URLs with your actual uploaded image links!
-img_intro = "https://your-link-to-first-photo.jpg" 
-img_yes = "https://your-link-to-second-photo.jpg"
-img_no = "https://your-link-to-third-photo.jpg"
-
 with st.container():
     st.markdown('<div class="main-card">', unsafe_allow_html=True)
     
-    # 1. Start of the App
     if 'stage' not in st.session_state:
         st.session_state.stage = 'intro'
 
+    # --- STAGE 1: INTRO ---
     if st.session_state.stage == 'intro':
         st.title("Dla mojej Pani, Martynki... ✨")
-        st.image(img_intro, use_container_width=True) # First Picture
-        st.write("I have a very important question for you...")
+        st.image("img_intro.jpg", use_container_width=True) 
+        st.write("I have a very important question for you today...")
         if st.button("Click to see what it is 💌"):
             st.session_state.stage = 'question'
             st.rerun()
 
-    # 2. The Big Question
+    # --- STAGE 2: THE QUESTION ---
     elif st.session_state.stage == 'question':
         st.markdown("## Martynka, will you be my Valentine? 🌹")
         col1, col2 = st.columns(2)
-        
         with col1:
             if st.button("TAK! 😍"):
                 st.session_state.stage = 'yes'
                 st.rerun()
-        
         with col2:
             if st.button("Nie... ❌"):
                 st.session_state.stage = 'no'
                 st.rerun()
 
-    # 3. The "Yes" Screen
+    # --- STAGE 3: THE YES ---
     elif st.session_state.stage == 'yes':
         st.balloons()
         st.snow()
         st.title("Hooray! ❤️")
-        st.image(img_yes, use_container_width=True) # Second Picture
-        st.success("I'm the luckiest guy in the world. I'll see you on the 14th!")
-        if st.button("Back"):
+        st.image("img_yes.jpg", use_container_width=True) 
+        st.success("I'm the luckiest guy in the world. See you on the 14th!")
+        if st.button("Back to start"):
             st.session_state.stage = 'intro'
             st.rerun()
 
-    # 4. The "No" Screen (The playful error)
+    # --- STAGE 4: THE NO ---
     elif st.session_state.stage == 'no':
         st.title("Wait... what? 🤨")
-        st.image(img_no, use_container_width=True) # Third Picture
+        st.image("img_no.jpg", use_container_width=True) 
         st.error("Error 404: 'No' is not a valid answer for Martynka. Try again!")
         if st.button("Try again 😉"):
             st.session_state.stage = 'question'
